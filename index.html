@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="js/main.js" defer></script>
+    <link rel="shortcut icon" href="/asset/icons8-dart-16 (1).png" type="image/x-icon">
+    <title>Dee Chat</title>
+    <style type="text/tailwindcss">
+        *, *::after, *::before {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        .navlist>li>a>img {
+            @apply w-full h-full my-3 bg-white p-1 rounded hover:bg-gray-100 hover:border-2 border-blue-400 duration-150
+        }
+        .active {
+            @apply !border-2 border-blue-400
+        }
+        .chatlist>li>a>svg {
+            @apply fill-black ml-1 items-center w-5 h-5 hover:fill-blue-700
+        }
+        .new-message {
+            @apply text-blue-500 font-bold
+        }
+        .new-message>span {
+            @apply bg-blue-500 text-white w-5 h-5 text-center rounded-full absolute right-0 bottom-0
+        }
+        .chat>a>div {
+            @apply flex gap-2 mb-3 w-full h-16 hover:bg-gray-100 py-1 items-center pl-1 rounded-lg
+        }
+        .active-chat {
+            @apply bg-gray-200
+        }
+        .call>a svg {
+            @apply hover:fill-black duration-150
+        }
+        .call>a>svg {
+            @apply w-6 h-6 fill-gray-400
+        }
+        .scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+        .scroll::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+        .scroll::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+        .my-shadow {
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+        }
+
+    </style>
+</head>
+<body class="bg-gray-200 overflow-hidden">
+
+    <section class="flex w-full h-[100vh] sm:h-[97.5vh] sm:gap-2 sm:pl-1 sm:mt-3">
+
+        <aside class="hidden md:block w-[45px] h-full">
+            <nav class="flex flex-col justify-between w-full h-full pb-4 mx-auto">
+                <ul class="navlist w-full h-full px-1">
+                    <li><a href="" title="deechat">
+                        <img class="w-6 h-6 items-center" src="https://img.icons8.com/ios-filled/003fff/50/dart-language.png" alt="dart-language"/>
+                    </a></li>
+                    <li><a href="" title="Profile">
+                        <img class="!p-0" src="asset/images/image1.png" alt="circled-user-male-skin-type-1-2--v1"/>
+                    </a></li>
+                    <li><a href="" title="chats">
+                        <img class="active" src="https://img.icons8.com/parakeet-line/0050ff/48/chat-message.png" alt="chat-message"/>
+                    </a></li>
+                    <li><a href="" title="calls">
+                        <img src="https://img.icons8.com/external-gradak-royyan-wijaya/24/external-calls-gradak-communikatok-solidarity-gradak-royyan-wijaya.png" alt="external-calls-gradak-communikatok-solidarity-gradak-royyan-wijaya"/>
+                    </a></li>
+                    <li><a href="" title="hots">
+                        <img src="https://img.icons8.com/ios-filled/50/storyfire.png" alt="storyfire"/>
+                    </a></li>
+                </ul>
+
+                <a href="">
+                    <svg class="w-10 h-10 p-2 items-center fill-black hover:fill-blue-600" xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="50px" height="50px"><path d="M 22.205078 2 A 1.0001 1.0001 0 0 0 21.21875 2.8378906 L 20.246094 8.7929688 C 19.076509 9.1331971 17.961243 9.5922728 16.910156 10.164062 L 11.996094 6.6542969 A 1.0001 1.0001 0 0 0 10.708984 6.7597656 L 6.8183594 10.646484 A 1.0001 1.0001 0 0 0 6.7070312 11.927734 L 10.164062 16.873047 C 9.583454 17.930271 9.1142098 19.051824 8.765625 20.232422 L 2.8359375 21.21875 A 1.0001 1.0001 0 0 0 2.0019531 22.205078 L 2.0019531 27.705078 A 1.0001 1.0001 0 0 0 2.8261719 28.691406 L 8.7597656 29.742188 C 9.1064607 30.920739 9.5727226 32.043065 10.154297 33.101562 L 6.6542969 37.998047 A 1.0001 1.0001 0 0 0 6.7597656 39.285156 L 10.648438 43.175781 A 1.0001 1.0001 0 0 0 11.927734 43.289062 L 16.882812 39.820312 C 17.936999 40.39548 19.054994 40.857928 20.228516 41.201172 L 21.21875 47.164062 A 1.0001 1.0001 0 0 0 22.205078 48 L 27.705078 48 A 1.0001 1.0001 0 0 0 28.691406 47.173828 L 29.751953 41.1875 C 30.920633 40.838997 32.033372 40.369697 33.082031 39.791016 L 38.070312 43.291016 A 1.0001 1.0001 0 0 0 39.351562 43.179688 L 43.240234 39.287109 A 1.0001 1.0001 0 0 0 43.34375 37.996094 L 39.787109 33.058594 C 40.355783 32.014958 40.813915 30.908875 41.154297 29.748047 L 47.171875 28.693359 A 1.0001 1.0001 0 0 0 47.998047 27.707031 L 47.998047 22.207031 A 1.0001 1.0001 0 0 0 47.160156 21.220703 L 41.152344 20.238281 C 40.80968 19.078827 40.350281 17.974723 39.78125 16.931641 L 43.289062 11.933594 A 1.0001 1.0001 0 0 0 43.177734 10.652344 L 39.287109 6.7636719 A 1.0001 1.0001 0 0 0 37.996094 6.6601562 L 33.072266 10.201172 C 32.023186 9.6248101 30.909713 9.1579916 29.738281 8.8125 L 28.691406 2.828125 A 1.0001 1.0001 0 0 0 27.705078 2 L 22.205078 2 z M 23.056641 4 L 26.865234 4 L 27.861328 9.6855469 A 1.0001 1.0001 0 0 0 28.603516 10.484375 C 30.066026 10.848832 31.439607 11.426549 32.693359 12.185547 A 1.0001 1.0001 0 0 0 33.794922 12.142578 L 38.474609 8.7792969 L 41.167969 11.472656 L 37.835938 16.220703 A 1.0001 1.0001 0 0 0 37.796875 17.310547 C 38.548366 18.561471 39.118333 19.926379 39.482422 21.380859 A 1.0001 1.0001 0 0 0 40.291016 22.125 L 45.998047 23.058594 L 45.998047 26.867188 L 40.279297 27.871094 A 1.0001 1.0001 0 0 0 39.482422 28.617188 C 39.122545 30.069817 38.552234 31.434687 37.800781 32.685547 A 1.0001 1.0001 0 0 0 37.845703 33.785156 L 41.224609 38.474609 L 38.53125 41.169922 L 33.791016 37.84375 A 1.0001 1.0001 0 0 0 32.697266 37.808594 C 31.44975 38.567585 30.074755 39.148028 28.617188 39.517578 A 1.0001 1.0001 0 0 0 27.876953 40.3125 L 26.867188 46 L 23.052734 46 L 22.111328 40.337891 A 1.0001 1.0001 0 0 0 21.365234 39.53125 C 19.90185 39.170557 18.522094 38.59371 17.259766 37.835938 A 1.0001 1.0001 0 0 0 16.171875 37.875 L 11.46875 41.169922 L 8.7734375 38.470703 L 12.097656 33.824219 A 1.0001 1.0001 0 0 0 12.138672 32.724609 C 11.372652 31.458855 10.793319 30.079213 10.427734 28.609375 A 1.0001 1.0001 0 0 0 9.6328125 27.867188 L 4.0019531 26.867188 L 4.0019531 23.052734 L 9.6289062 22.117188 A 1.0001 1.0001 0 0 0 10.435547 21.373047 C 10.804273 19.898143 11.383325 18.518729 12.146484 17.255859 A 1.0001 1.0001 0 0 0 12.111328 16.164062 L 8.8261719 11.46875 L 11.523438 8.7734375 L 16.185547 12.105469 A 1.0001 1.0001 0 0 0 17.28125 12.148438 C 18.536908 11.394293 19.919867 10.822081 21.384766 10.462891 A 1.0001 1.0001 0 0 0 22.132812 9.6523438 L 23.056641 4 z M 25 17 C 20.593567 17 17 20.593567 17 25 C 17 29.406433 20.593567 33 25 33 C 29.406433 33 33 29.406433 33 25 C 33 20.593567 29.406433 17 25 17 z M 25 19 C 28.325553 19 31 21.674447 31 25 C 31 28.325553 28.325553 31 25 31 C 21.674447 31 19 28.325553 19 25 C 19 21.674447 21.674447 19 25 19 z"/></svg>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="bg-white w-full h-full md:rounded-l-2xl flex">
+            <section class="hidden w-full md:block md:w-[45%] lg:w-[35%] h-full px-4 py-4 border-r-[1px] border-gray-200" id="chatlist">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-bold">Chats</h2>
+                    <nav>
+                        <ul class="flex items-center gap-2 chatlist">
+                            <li><a href="" title="New Chat">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M120-160v-600q0-33 23.5-56.5T200-840h480q33 0 56.5 23.5T760-760v203q-10-2-20-2.5t-20-.5q-10 0-20 .5t-20 2.5v-203H200v400h283q-2 10-2.5 20t-.5 20q0 10 .5 20t2.5 20H240L120-160Zm160-440h320v-80H280v80Zm0 160h200v-80H280v80Zm400 280v-120H560v-80h120v-120h80v120h120v80H760v120h-80ZM200-360v-400 400Z"/></svg>
+                            </a></li>
+                            <li><a href="" title="Labels">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h440q19 0 36 8.5t28 23.5l216 288-216 288q-11 15-28 23.5t-36 8.5H160Zm0-80h440l180-240-180-240H160v480Zm220-240Z"/></svg>
+                            </a></li>
+                            <li><a href="" title="Filter">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M400-240v-80h160v80H400ZM240-440v-80h480v80H240ZM120-640v-80h720v80H120Z"/></svg>
+                            </a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <form action="" class="w-full relative mb-6">
+                    <label for="chat" class="absolute ml-1 mt-1">
+                        <svg class="fill-black w-6 h-6 px-1" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg>
+                    </label>
+                    <input type="text" name="chat" id="chat" class="w-[99%] mx-auto h-8 items-center rounded border-[1px] border-gray-200 outline-none pl-8 focus:border-b-2 focus:border-b-blue-600" placeholder="search or start a new chat">
+                </form>
+
+                <section class="w-full h-[83%] ml-1 pr-2 chat overflow-y-auto scroll">
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image1.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Peggy Williams</h3>
+                                    <p class="text-sm italic font-sans">recent messages in the chats</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">2 mins ago<span>22</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image3.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Mark king</h3>
+                                    <p class="text-sm italic font-sans">The more you cry the more....</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">15 mins ago<span>1</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat active-chat">
+                            <img src="/asset/images/image1.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">My love ❤</h3>
+                                    <p class="text-sm italic font-sans">recent messages in the chats</p>
+                                </div>
+                                <p class="flex flex-col text-right justify-between text-sm relative">2 mins ago</p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image3.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Marc holland</h3>
+                                    <p class="text-sm italic font-sans">The more you cry the more....</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">15 mins ago<span>1</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image2.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Mark king</h3>
+                                    <p class="text-sm italic font-sans">The more you cry the more....</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">15 mins ago<span>1</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image6.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">lyon smoll</h3>
+                                    <p class="text-sm italic font-sans">The more you cry the more....</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">15 mins ago<span>1</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image3.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Mary king</h3>
+                                    <p class="text-sm italic font-sans">The more you cry the more....</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">15 mins ago<span>1</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image3.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Mark Martins</h3>
+                                    <p class="text-sm italic font-sans">The more you cry the more....</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">90 mins ago<span>1</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image3.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Elizabeth king</h3>
+                                    <p class="text-sm italic font-sans">The more you cry the more....</p>
+                                </div>
+                                <p class="flex flex-col text-right new-message justify-between text-sm relative">65 mins ago<span>1</span></p>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="">
+                        <div class="chat">
+                            <img src="/asset/images/image2.png" alt="profile image" title="username" class="w-[45px] h-[45px] rounded-full">
+                            <div class="flex justify-between w-[82%]">
+                                <div class="items-center">
+                                    <h3 class="font-bold text-sm">Micheal steve</h3>
+                                    <p class="text-sm italic font-sans">I wont be coming home today</p>
+                                </div>
+                                <p class="flex flex-col text-right justify-between text-sm relative">55 mins ago</p>
+                            </div>
+                        </div>
+                    </a>
+                </section>
+
+            </section>
+            <section class="w-[100%] md:w-[55%] lg:w-[65%]" id="chatbox">
+                <section class="w-full border-b-[1px] flex justify-between items-center px-4 py-2">
+                   <div>
+                    <div href="" class="flex gap-3">
+                        <img id="arrowback" class="w-6 h-6 mt-3 md:hidden" src="asset/icons8-arrow-back-50.png" alt="arrow">
+                        <a href="">
+                            <img src="asset/images/image1.png" alt="profile picture" class="w-[45px] h-[45px] rounded-full">
+                        </a>
+                        <div>
+                            <h3 class="font-bold text-sm">My love ❤</h3>
+                            <p class="text-base italic font-sans">profile detail</p>
+                        </div>
+                    </div>
+                   </div>
+                    <div class="flex gap-12 items-center">
+                        <div class="flex w-24 h-11 items-center justify-around call border-2 rounded">
+                            <a href="" title="video call" class="border-r-2 pr-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h480q33 0 56.5 23.5T720-720v180l160-160v440L720-420v180q0 33-23.5 56.5T640-160H160Zm0-80h480v-480H160v480Zm0 0v-480 480Z"/></svg>
+                            </a>
+                            <a href="" title="voice call" class="border-l-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M798-120q-125 0-247-54.5T329-329Q229-429 174.5-551T120-798q0-18 12-30t30-12h162q14 0 25 9.5t13 22.5l26 140q2 16-1 27t-11 19l-97 98q20 37 47.5 71.5T387-386q31 31 65 57.5t72 48.5l94-94q9-9 23.5-13.5T670-390l138 28q14 4 23 14.5t9 23.5v162q0 18-12 30t-30 12ZM241-600l66-66-17-94h-89q5 41 14 81t26 79Zm358 358q39 17 79.5 27t81.5 13v-88l-94-19-67 67ZM241-600Zm358 358Z"/></svg>
+                            </a>
+                        </div>
+                        <a href="" title="search" class="mr-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#5f6368"><path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/></svg> 
+                        </a>
+                    </div>
+                </section>
+                <section class="w-full md:h-[80vh] h-[85vh] bg-[url('asset/images/image6.png')] bg-contain">
+                    <section class="w-full h-full p-2 overflow-y-auto scroll">
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-64 h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">hello <span class="text-[12px] content-end">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">You know i was thinking about what we discussed yesterday and it has been so much. we really need time to break the news to them. i cant believe im the one saying this 😢. <span class="text-[12px] content-end">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">You know i was thinking about what we discussed yesterday and it has been so much. we really need time to break the news to them. i cant believe im the one saying this 😢. <span class="text-[12px] content-end">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2 place-self-end">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-blue-600 text-white px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">You know i was thinking about what we discussed yesterday and it has been so much. we really need time to break the news to them. i cant believe im the one saying this 😢. <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2 place-self-end">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-blue-600 text-white px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">I dont understand this. <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">check the messages <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">check the messages <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">check the messages <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">check the messages <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">check the messages <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <div class="inline-block w-auto max-w-[300px] h-auto bg-white text-black text-black px-3 py-1 rounded">
+                                <p class="flex justify-between gap-2">recent messages in the chats <span class="text-[12px] content-end text-gray-400">2:00pm</span></p>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+                <section class="w-full my-shadow">
+                    <form action="" method="" class="relative h-24">
+                        <input class="md:w-[95%] w-full h-16 md:h-12 md:ml-6 md:rounded-bl-lg pl-4 pr-20 outline-none text-black border-b-2 border-blue-500" name="message" id="message" placeholder="Type your message">
+                        <button type="submit" class="absolute right-6 md:top-2 top-4 font-bold rounded-lg bg-blue-600 text-white px-3 py-1">
+                            send
+                        </button>
+                    </form>
+            </section>
+            </section>
+        </main>
+    </section>
+    
+</body>
+</html>
